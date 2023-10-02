@@ -5,9 +5,7 @@ using namespace std;
 
 class NodeUser {
     public:
-        string user;
-        string pass;
-        string email;
+        string user, pass, email;
         bool logAcc;
         int age;
         NodeUser *next;
