@@ -2,6 +2,12 @@
     "files.associations": {
         "list": "cpp",
         "string": "cpp",
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "deque": "cpp",
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "new": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

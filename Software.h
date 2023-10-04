@@ -1,5 +1,5 @@
-#ifndef CIRCULARLISTUSER_H
-#define CIRCULARLISTUSER_H
+#ifndef SOFTWARE_H
+#define SOFTWARE_H
 
 #include <iostream>
 #include <string>
@@ -21,5 +21,12 @@ class Software{
             this->price = _price;
         }
 
+        CircularListUser getList(){
+            return list;
+        }
+
+        void print(){
+            cout << name << "--" << dev << "--" << age << "--" << price;
+        }
 };
 #endif

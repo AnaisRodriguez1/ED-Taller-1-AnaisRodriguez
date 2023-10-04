@@ -1,3 +1,5 @@
+#ifndef NODEUSER_H
+#define NODEUSER_H
 #include <iostream>
 #include <string>
 #include "NodeUser.h"
@@ -15,8 +17,8 @@ class CircularListUser{
             cantUsers = 0;
         }
 
-        void insert(string _user, string _pass, int _age, string _email, bool _logAcc){
-            NodeUser* newUser = new NodeUser(_user,_pass,_age,_email,_logAcc);
+        void insert(NodeUser* _newUser){
+            NodeUser* newUser = newUser;
             
             //Si la lista está vacía se designa que la cabeza es el nuevo Nodo
             if(head == NULL){
@@ -51,7 +53,7 @@ class CircularListUser{
         }
         
         //Encontrar el usuario y contraseña para ver si son válidas, además retorna el tipo de usuario que es.
-        string searchUser(string user,string pass){
+        string searchType(string user,string pass){
             NodeUser* actual = head;
             bool founded = false;
             string type= "Not valid";
@@ -79,3 +81,4 @@ class CircularListUser{
 
 
 };
+#endif
