@@ -1,5 +1,5 @@
-#ifndef NODEUSER_H
-#define NODEUSER_H
+#ifndef CIRCULARLISTUSER_H
+#define CIRCULARLISTUSER_H
 #include <iostream>
 #include <string>
 #include "NodeUser.h"
@@ -22,7 +22,7 @@ class CircularListUser{
             
             //Si la lista está vacía se designa que la cabeza es el nuevo Nodo
             if(head == NULL){
-                newUser -> next = newUser;
+                newUser -> next = _newUser;
                 head = newUser;
             //Si la lista ya tiene un nodo
             // el siguiente del nuevo nodo será el siguiente de la cabeza
@@ -65,20 +65,16 @@ class CircularListUser{
                     //condicion para encontrar a el usuario
                     if(user == actual->user && actual->pass == pass){
                         founded = true;
-                        cout << "Founded.";
                         type = actual->type;
                     }
                     actual = actual->next;        
                 } while (actual != head);
             }
             if(!founded){
-                cout <<"Not Founded.";
                 }
             cout << endl;
             return type;
         }
-
-
 
 };
 #endif

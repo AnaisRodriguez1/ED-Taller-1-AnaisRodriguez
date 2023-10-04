@@ -1,3 +1,6 @@
+#ifndef NODEUSER_H
+#define NODEUSER_H
+
 #include <iostream>
 #include <string>
 
@@ -9,7 +12,6 @@ class NodeUser {
         bool logAcc;
         int age;
         NodeUser *next;
-
         string type;
 
         NodeUser(string _user, string _pass, int _age, string _email, bool _logAcc){
@@ -33,3 +35,4 @@ class NodeUser {
             return type;
         }
 };
+#endif

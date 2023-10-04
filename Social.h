@@ -18,3 +18,4 @@ class Social : public Software{
         }
 };
 
+#endif

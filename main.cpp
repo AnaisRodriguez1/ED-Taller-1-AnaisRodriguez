@@ -132,42 +132,145 @@ int main(){
     listSecurities.push(s1);listSecurities.push(s2);listSecurities.push(s3);listSecurities.push(s4);listSecurities.push(s5);listSecurities.push(s6);
 
     //POBLAR SOFTWARE DE SOCIAL*************
+
+    //lista para amigos mayores a 18 años
     stack<NodeUser*> listFriends18;
     listFriends18.push(u15);listFriends18.push(u14);
     Social *soc1 = new Social("Discord","Electron",18,listUsers,0,listFriends18);
 
+    //lista para amigos menor a 18 años
     stack<NodeUser*> listFriends;
     listFriends.push(u1);listFriends.push(u2);
     Social *soc2 = new Social("WhatsApp","Facebook Inc",16,listUsers,0,listFriends);
 
-    //listUsers.see();
 
-    string userLog;
-    string passLog;
+    //LOGICA PARA CREAR BUCLE ENTRE EL LOGIN, LOGOUT Y EXIT DEL PROGRAMA
+    int exitProgram;
+    bool logIn = false;
+    int loginChoice;
 
-    cout << "WELCOME TO WORKSHOP 1:\n Enter username:";
-    cin >> userLog;
-    cout << "Enter password:";
-    cin >> passLog;
+    do {
+        cout << "WELCOME" << endl;
+        cout << "[1] Log In" << endl;
+        cout << "[2] Exit the Program" << endl;
+        cin >> exitProgram;
 
-    while (listUsers.searchType(userLog, passLog) == "Not valid") {
-        cout << "Invalid username and/or password.:\n Enter username:";
-        cin >> userLog;
-        cout << "Enter password:";
-        cin >> passLog;
-    }
+        switch (exitProgram) {
+            case 1:
+                cout << "Logging In..." << endl;
+                logIn = true;  // SE INICIA SESIÓN Y ENTREA AL BUCLE WHILE
+                break;
+            case 2:
+                cout << "Exiting the program..." << endl;
+                return 0;  // SE TERMINA EL PROGRAMA, YA QUE SOLO SE CUMPLE ESTE BUCLE SI ES VERDADERO
+        }
 
-    if(listUsers.searchType(userLog,passLog) == "Normal User"){
-        cout << "WELCOME NORMAL USER"
+        // SI EL USUARIO HA INICIADO SESIÓN, ENTRA AL BUCLE DE LOGIN
+        while (logIn) {
+            string userLog;
+            string passLog;
 
-    }
-    else if(listUsers.searchType(userLog,passLog) == "Administrator"){
+            cout << "Enter username: ";
+            cin >> userLog;
+            cout << "Enter password: ";
+            cin >> passLog;
 
-    }
-    else if(listUsers.searchType(userLog,passLog) == "Children"){
+            //BUCLE SI EL USUARIO Y/O CONTRASEÑA SON INVALIDOS HASTA INGRESAR UNO CORRECTO
+            while (listUsers.searchType(userLog, passLog) == "Not valid") {
+                cout << "Invalid username and/or password. Please enter valid credentials." << endl;
+                cout << "Enter username: ";
+                cin >> userLog;
+                cout << "Enter password: ";
+                cin >> passLog;
+            }
 
-    }
+            //SI EL TIPO DEL USUARIO COINCIDE CON EL USUARIO NORMAL ENTRA A ESTE BUCLE, SINO...
+            if (listUsers.searchType(userLog, passLog) == "Normal User") {
+                cout << "WELCOME USER" << endl;
 
+                cout << "Menu After Login:" << endl;
+                cout << "1. Option 1" << endl;
+                cout << "2. Option 2" << endl;
+                cout << "3. Log Out" << endl;
+                cout << "Choose an option (1-3): ";
+                cin >> loginChoice;
 
+                switch (loginChoice) {
+                    case 1:
+                        cout << "Performing Option 1..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 1.
+                        break;
+                    case 2:
+                        cout << "Performing Option 2..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 3:
+                        cout << "Logging Out." << endl;
+                        logIn = false;  // El usuario cierra la sesión.
+                        break;
+                    default:
+                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        break;
+                }
 
+            //SI EL TIPO DEL USUARIO COINCIDE CON EL ADMINISTRADOR ENTRA A ESTE BUCLE, SINO...
+            } else if (listUsers.searchType(userLog, passLog) == "Administrator") {
+                cout << "WELCOME ADMINISTRATOR" << endl;
+
+                cout << "Menu After Login:" << endl;
+                cout << "1. Option 1" << endl;
+                cout << "2. Option 2" << endl;
+                cout << "3. Log Out" << endl;
+                cout << "Choose an option (1-3): ";
+                cin >> loginChoice;
+
+                switch (loginChoice) {
+                    case 1:
+                        cout << "Performing Option 1..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 1.
+                        break;
+                    case 2:
+                        cout << "Performing Option 2..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 3:
+                        cout << "Logging Out." << endl;
+                        logIn = false;  // El administrador cierra la sesión.
+                        break;
+                    default:
+                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        break;
+                }
+
+            //SI EL TIPO DEL USUARIO COINCIDE CON "NIÑO" ENTRA A ESTE BUCLE.
+            } else if (listUsers.searchType(userLog, passLog) == "Children") {
+                cout << "WELCOME CHILDREN" << endl;
+
+                cout << "Menu After Login:" << endl;
+                cout << "1. Option 1" << endl;
+                cout << "2. Option 2" << endl;
+                cout << "3. Log Out" << endl;
+                cout << "Choose an option (1-3): ";
+                cin >> loginChoice;
+
+                switch (loginChoice) {
+                    case 1:
+                        cout << "Performing Option 1..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 1.
+                        break;
+                    case 2:
+                        cout << "Performing Option 2..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 3:
+                        cout << "Logging Out." << endl;
+                        logIn = false;  // Los niños cierran la sesión.
+                        break;
+                    default:
+                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        break;
+                }
+            }
+        }
+    } while (true);
 }
