@@ -18,7 +18,7 @@ int main(){
 
     // CONDICIONES DE ENTREGA 
     CircularListUser listUsers; //lista circular de punteros de  Usuarios
-    stack<Software*> listGames; // lista de pila de punteros para Software de Juego
+    vector<Game*> listGames; // lista de pila de punteros para Software de Juego
     stack<OfficeSuite*> listOffices; // lista de pila de punteros para Software de Ofimática
     stack<Production*> listProductions; // lista de pila de punteros para Software de Producción
     stack<Browser*> listBrowsers; // lista de pila de punteros para Software de Navegador
@@ -51,20 +51,20 @@ int main(){
 
     //POBLAR SOFTWARE DE JUEGOS*************
     
-    Game *game1 = new Game("The Legend of Zelda™: Breath of the Wild","Nintendo",15,listUsers,58990,"Adventure");
-    Game *game2 = new Game("The Legend of Zelda™: Tears of the Kingdom","Nintendo",15,listUsers,68790,"Adventure");
-    Game *game3 = new Game("Pokémon™ Violet","The Pokémon Company",15,listUsers,58990,"Role-playing");
-    Game *game4 = new Game("Pokémon™ Scarlet","The Pokémon Company",15,listUsers,58990,"Role-playing");
+    Game *game1 = new Game("The Legend of Zelda: Breath of the Wild","Nintendo",15,listUsers,58990,"Adventure");
+    Game *game2 = new Game("The Legend of Zelda: Tears of the Kingdom","Nintendo",15,listUsers,68790,"Adventure");
+    Game *game3 = new Game("Pokemon Violet","The Pokemon Company",15,listUsers,58990,"Role-playing");
+    Game *game4 = new Game("Pokemon Scarlet","The Pokemon Company",15,listUsers,58990,"Role-playing");
     Game *game5 = new Game("VALORANT","Riot Games",13,listUsers,0,"Tactical Shooter");
     Game *game6 = new Game("Counter-Strike 2","Valve Corporation",13,listUsers,0,"Tactical Shooter");
-    Game *game7 = new Game("Pokémon Unite™","Nintendo",15,listUsers,0,"MOBA");
+    Game *game7 = new Game("Pokemon Unite","Nintendo",15,listUsers,0,"MOBA");
     Game *game8 = new Game("League of Legends","Riot Games",13,listUsers,0,"MOBA");
     Game *game9 = new Game("Fornite","Epic Games",13,listUsers,0,"FPS");
     Game *game10 = new Game("Apex Legends","Respawn Entertainment",16,listUsers,0,"FPS");
     Game *game11 = new Game("FINAL FANTASY XIV","Square Enix",13,listUsers,22990,"MMORPG");
     Game *game12 = new Game("World of Warcraft","Blizzard Entertainment",13,listUsers,15600,"MMORPG");
     Game *game13 = new Game("Ori and the Will of the Wisps","Moon Studios",7,listUsers,24990,"Puzzle");
-    Game *game14 = new Game("Holow Knight","Team Cherry",7,listUsers,8300,"Metroidvania");
+    Game *game14 = new Game("Hollow Knight","Team Cherry",7,listUsers,8300,"Metroidvania");
     Game *game15 = new Game("ENDER LILIES: Quietus of the Knights","Live Wire",12,listUsers,9500,"Metroidvania");
 
     //JUEGOS 18+
@@ -74,10 +74,10 @@ int main(){
     Game *game19 = new Game("Grnad theft Auto V","Rockstar Games",18,listUsers,27192,"Open World");
     Game *game20 = new Game("The Witcher 3: Wild Hunt","CD PROJEKT RED",18,listUsers,18300,"Open World");
 
-    listGames.push(game1);listGames.push(game2);listGames.push(game3);listGames.push(game4);listGames.push(game5);
-    listGames.push(game6);listGames.push(game7);listGames.push(game8);listGames.push(game9);listGames.push(game10);
-    listGames.push(game11);listGames.push(game12);listGames.push(game13);listGames.push(game14);listGames.push(game15);
-    listGames.push(game16);listGames.push(game17);listGames.push(game18);listGames.push(game19);listGames.push(game20);
+    listGames.push_back(game1);listGames.push_back(game2);listGames.push_back(game3);listGames.push_back(game4);listGames.push_back(game5);
+    listGames.push_back(game6);listGames.push_back(game7);listGames.push_back(game8);listGames.push_back(game9);listGames.push_back(game10);
+    listGames.push_back(game11);listGames.push_back(game12);listGames.push_back(game13);listGames.push_back(game14);listGames.push_back(game15);
+    listGames.push_back(game16);listGames.push_back(game17);listGames.push_back(game18);listGames.push_back(game19);listGames.push_back(game20);
 
     //POBLAR SOFTWARE DE OFIMATICA*************
     OfficeSuite *fs1 = new OfficeSuite("Microsoft Word","Microsoft",13,listUsers,139990,1000);
@@ -188,28 +188,68 @@ int main(){
             if (listUsers.searchType(userLog, passLog) == "Normal User") {
                 cout << "WELCOME USER" << endl;
 
-                cout << "Menu After Login:" << endl;
-                cout << "1. Option 1" << endl;
-                cout << "2. Option 2" << endl;
-                cout << "3. Log Out" << endl;
-                cout << "Choose an option (1-3): ";
+                cout << "SOFTWARES:" << endl;
+                cout << "1. Games" << endl;
+                cout << "2. Office Suites" << endl;
+                cout << "3. Productions" << endl;
+                cout << "4. Browsers" << endl;
+                cout << "5. Socials" << endl;
+                cout << "6. Log Out" << endl;
+                cout << "Choose an option (1-6): ";
                 cin >> loginChoice;
 
                 switch (loginChoice) {
                     case 1:
-                        cout << "Performing Option 1..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 1.
+                        cout << "Performing Games..." << endl;
+                        cout << "1. Delete Game" << endl;
+                        cout << "2. Buy Game" << endl;
+                        cout << "3. Go back" << endl;
+                        cout << "Choose an option (1-3): ";
+                        int methodChoice;
+                        switch(methodChoice){
+                            case 1:                   
+                            int gameSelect; //[][][][]
+                            for(int i=0; i<listGames.size();i++){
+                                Software *game = listGames[i];
+                                cout << "[" <<i<< "] ";
+                                game->printName();      
+                            }
+                            cout << "Choose a game:";
+                            cin >> gameSelect;//[][][][]
+
+                            case 2:
+
+                            case 3:
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+
+                        }
                         break;
                     case 2:
-                        cout << "Performing Option 2..." << endl;
+                        cout << "Performing Office Suites..." << endl;
                         // Realiza las acciones correspondientes para la Opción 2.
                         break;
                     case 3:
+                        cout << "Performing Productions..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 4:
+                        cout << "Performing Browsers..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 5:
+                        cout << "Performing Socials..." << endl;
+                        // Realiza las acciones correspondientes para la Opción 2.
+                        break;
+                    case 6:
                         cout << "Logging Out." << endl;
-                        logIn = false;  // El usuario cierra la sesión.
+                        logIn = false;  // Sale del ciclo y vuelve al while anterior
                         break;
                     default:
-                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        cout << "Invalid option. Please choose a valid option." << endl;
                         break;
                 }
 

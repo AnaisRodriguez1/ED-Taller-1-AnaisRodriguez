@@ -25,8 +25,8 @@ class Software{
             return list;
         }
 
-        void print(){
-            cout << name << "--" << dev << "--" << age << "--" << price;
+        void printName(){
+            cout << name <<"\n";
         }
 };
 #endif
