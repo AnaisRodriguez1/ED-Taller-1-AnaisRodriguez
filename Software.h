@@ -21,12 +21,8 @@ class Software{
             this->price = _price;
         }
 
-        CircularListUser getList(){
-            return list;
-        }
-
-        void printName(){
-            cout << name <<"\n";
+        virtual void printName() {
+            cout << name <<" -- "<<dev<<" -- "<<age<<" -- "<<price;
         }
 };
 #endif

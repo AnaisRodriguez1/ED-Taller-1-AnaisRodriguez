@@ -18,12 +18,12 @@ int main(){
 
     // CONDICIONES DE ENTREGA 
     CircularListUser listUsers; //lista circular de punteros de  Usuarios
-    vector<Game*> listGames; // lista de pila de punteros para Software de Juego
-    stack<OfficeSuite*> listOffices; // lista de pila de punteros para Software de Ofimática
-    stack<Production*> listProductions; // lista de pila de punteros para Software de Producción
-    stack<Browser*> listBrowsers; // lista de pila de punteros para Software de Navegador
-    stack<Security*> listSecurities; // lista de pila de punteros para Software de Seguridad
-    stack<Social*> listSocials; // lista de pila de punteros para Software de Social
+    vector<Software*> listGames; // lista de vector de punteros para Software de Juego
+    vector<Software*> listOffices; // lista de vector de punteros para Software de Ofimática
+    vector<Software*> listProductions; // lista de vector de punteros para Software de Producción
+    vector<Software*> listBrowsers; // lista de vector de punteros para Software de Navegador
+    vector<Software*> listSecurities; // lista de vector de punteros para Software de Seguridad
+    vector<Software*> listSocials; // lista de vector de punteros para Software de Social
 
     //POBLAR SOFTWARE DE USUARIOS*************
     //4 NIÑOS
@@ -86,15 +86,15 @@ int main(){
     OfficeSuite *fs4 = new OfficeSuite("Microsoft Outlook","Microsoft",13,listUsers,139990,2000);
     OfficeSuite *fs5 = new OfficeSuite("Microsoft OneNote","Microsoft",13,listUsers,139990,100);
 
-    listOffices.push(fs1);listOffices.push(fs2);listOffices.push(fs3);listOffices.push(fs4);listOffices.push(fs5);
+    listOffices.push_back(fs1);listOffices.push_back(fs2);listOffices.push_back(fs3);listOffices.push_back(fs4);listOffices.push_back(fs5);
 
     //POBLAR SOFTWARE DE PRODUCCION*************
     Production *p1 = new Production("Audacity","The Audacity Team",18,listUsers,0,"Audio");
-    Production *p2 = new Production("Vegas Pro","Sony Creative Software,",18,listUsers,54000,"Video");
+    Production *p2 = new Production("Vegas Pro","Sony Creative Software",18,listUsers,54000,"Video");
     Production *p3 = new Production("OBS Studio","Lain Bailey",18,listUsers,0,"Streaming");
     Production *p4 = new Production("Adobe Photoshop","Adobe Inc",18,listUsers,163200,"Image");
 
-    listProductions.push(p1);listProductions.push(p2);listProductions.push(p3);listProductions.push(p4);
+    listProductions.push_back(p1);listProductions.push_back(p2);listProductions.push_back(p3);listProductions.push_back(p4);
 
     //POBLAR SOFTWARE DE NAVEGADOR*************
     vector<string> history1 = {"https://www.op.gg/summoners/kr/hide%20on%20bush", //1
@@ -129,7 +129,7 @@ int main(){
     Security *s5 = new Security("Norton 360","Norton",18,listUsers,16000,"Computer Worms");
     Security *s6 = new Security("Kaspersky Total Security","Kaspersky Lab",18,listUsers,29610,"Trojans");
 
-    listSecurities.push(s1);listSecurities.push(s2);listSecurities.push(s3);listSecurities.push(s4);listSecurities.push(s5);listSecurities.push(s6);
+    listSecurities.push_back(s1);listSecurities.push_back(s2);listSecurities.push_back(s3);listSecurities.push_back(s4);listSecurities.push_back(s5);listSecurities.push_back(s6);
 
     //POBLAR SOFTWARE DE SOCIAL*************
 
@@ -148,6 +148,10 @@ int main(){
     int exitProgram;
     bool logIn = false;
     int loginChoice;
+    bool back = false;
+    int methodChoice;
+    string userLog;
+    string passLog;
 
     do {
         cout << "WELCOME" << endl;
@@ -157,6 +161,20 @@ int main(){
 
         switch (exitProgram) {
             case 1:
+                cout << "Enter username: ";
+                cin >> userLog;
+                cout << "Enter password: ";
+                cin >> passLog;
+
+                //BUCLE SI EL USUARIO Y/O CONTRASEÑA SON INVALIDOS HASTA INGRESAR UNO CORRECTO
+                while (listUsers.searchType(userLog, passLog) == "Not valid") {
+                    cout << "Invalid username and/or password. Please enter valid credentials." << endl;
+                    cout << "Enter username: ";
+                    cin >> userLog;
+                    cout << "Enter password: ";
+                    cin >> passLog;
+                }
+
                 cout << "Logging In..." << endl;
                 logIn = true;  // SE INICIA SESIÓN Y ENTREA AL BUCLE WHILE
                 break;
@@ -167,65 +185,54 @@ int main(){
 
         // SI EL USUARIO HA INICIADO SESIÓN, ENTRA AL BUCLE DE LOGIN
         while (logIn) {
-            string userLog;
-            string passLog;
-
-            cout << "Enter username: ";
-            cin >> userLog;
-            cout << "Enter password: ";
-            cin >> passLog;
-
-            //BUCLE SI EL USUARIO Y/O CONTRASEÑA SON INVALIDOS HASTA INGRESAR UNO CORRECTO
-            while (listUsers.searchType(userLog, passLog) == "Not valid") {
-                cout << "Invalid username and/or password. Please enter valid credentials." << endl;
-                cout << "Enter username: ";
-                cin >> userLog;
-                cout << "Enter password: ";
-                cin >> passLog;
-            }
-
             //SI EL TIPO DEL USUARIO COINCIDE CON EL USUARIO NORMAL ENTRA A ESTE BUCLE, SINO...
             if (listUsers.searchType(userLog, passLog) == "Normal User") {
                 cout << "WELCOME USER" << endl;
 
                 cout << "SOFTWARES:" << endl;
-                cout << "1. Games" << endl;
-                cout << "2. Office Suites" << endl;
-                cout << "3. Productions" << endl;
-                cout << "4. Browsers" << endl;
-                cout << "5. Socials" << endl;
-                cout << "6. Log Out" << endl;
+                cout << "[1] Games" << endl;
+                cout << "[2] Office Suites" << endl;
+                cout << "[3] Productions" << endl;
+                cout << "[4] Browsers" << endl;
+                cout << "[5] Socials" << endl;
+                cout << "[6] Log Out" << endl;
                 cout << "Choose an option (1-6): ";
                 cin >> loginChoice;
 
                 switch (loginChoice) {
                     case 1:
-                        cout << "Performing Games..." << endl;
-                        cout << "1. Delete Game" << endl;
-                        cout << "2. Buy Game" << endl;
-                        cout << "3. Go back" << endl;
-                        cout << "Choose an option (1-3): ";
-                        int methodChoice;
-                        switch(methodChoice){
-                            case 1:                   
-                            int gameSelect; //[][][][]
-                            for(int i=0; i<listGames.size();i++){
-                                Software *game = listGames[i];
-                                cout << "[" <<i<< "] ";
-                                game->printName();      
+                        while(!back){
+                            cout << "Performing Games..." << endl;
+                            cout << "[1] Delete Game" << endl;
+                            cout << "[2] Add Game" << endl;
+                            cout << "[3] Change gender" << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-3): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){ 
+                                case 1:
+                                for(int i=0;i<listGames.size();i++){
+                                    cout << "["<<i<<"] ";
+                                    listGames[i]->printName();
+                                }                            
+                                break;
+
+                                case 2:
+                                break; 
+
+                                case 3:
+                                break;
+
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+
                             }
-                            cout << "Choose a game:";
-                            cin >> gameSelect;//[][][][]
-
-                            case 2:
-
-                            case 3:
-                            break;
-
-                            default:
-                            cout << "Invalid option. Please choose a valid option." << endl;
-                            break;
-
                         }
                         break;
                     case 2:
