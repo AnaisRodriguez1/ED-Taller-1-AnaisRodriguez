@@ -17,32 +17,50 @@ class CircularListUser{
             qtyUsers = 0;
         }
 
-    void insert(NodeUser* _newUser) {
-        // Crear un nuevo nodo de usuario
-        NodeUser* newUser = _newUser;
-        
-        // Si la lista está vacía, se designa que la cabeza es el nuevo Nodo
-        if (head == NULL) {
-            newUser->next = newUser;
-            head = newUser;
-        } else {
-            // Si la lista ya tiene un nodo
-            // El siguiente del nuevo nodo será el siguiente de la cabeza
-            // El siguiente de la cabeza será el nuevo nodo
-            newUser->next = head->next;
-            head->next = newUser;
+        void insert(NodeUser* _newUser) {
+            // Crear un nuevo nodo de usuario
+            NodeUser* newUser = _newUser;
+            
+            // Si la lista está vacía, se designa que la cabeza es el nuevo Nodo
+            if (head == NULL) {
+                newUser->next = newUser;
+                head = newUser;
+            } else {
+                // Si la lista ya tiene un nodo
+                // El siguiente del nuevo nodo será el siguiente de la cabeza
+                // El siguiente de la cabeza será el nuevo nodo
+                newUser->next = head->next;
+                head->next = newUser;
+            }
+            
+            // Aumenta el número de usuarios de la lista
+            qtyUsers++;
         }
-        
-        // Aumenta el número de usuarios de la lista
-        qtyUsers++;
-    }
 
+        NodeUser* getUser(int index){
+            NodeUser* actual = head;
+            NodeUser* current = head;
+            if (head == NULL) {// Si la cabeza es null, la lista está vacía
+                cout << "The list is empty";
+            } else {
+                int currentIndex = 0;
+                    do {
+                        if (currentIndex == index) {
+                            return current;  // Se encontró el nodo con el índice deseado
+                        }
+
+                        current = current->next;
+                        currentIndex++;
+                    } while (current != head && currentIndex <= index);
+                    return nullptr;  // No se encontró el nodo con el índice deseado
+            }
+        }
 
         void see() {
             NodeUser* actual = head;
-            // Si la cabeza es null, la lista está vacía
+            
 
-            if (head == NULL) {
+            if (head == NULL) {// Si la cabeza es null, la lista está vacía
                 cout << "The list is empty";
             } else {
                 do {
@@ -82,10 +100,8 @@ class CircularListUser{
             return qtyUsers;
         }
 
-
         bool agreement() {
-            bool agreement = true;
-            
+            bool agreement = true;   
             NodeUser* actual = head;
 
             // Si la cabeza es null, la lista está vacía
@@ -107,7 +123,6 @@ class CircularListUser{
             }
             return agreement;
         }
-
 
 };
 #endif
