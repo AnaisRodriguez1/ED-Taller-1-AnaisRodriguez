@@ -68,11 +68,21 @@ vector<Software*> setListGames (CircularListUser listUsers,vector<Software*> lis
     listGames.push_back(game16);listGames.push_back(game17);listGames.push_back(game18);listGames.push_back(game19);listGames.push_back(game20);
 }
 vector<Software*> setListOfficeSuites (CircularListUser listUsers,vector<Software*> listOffices){
-    OfficeSuite *fs1 = new OfficeSuite("Microsoft Word","Microsoft",13,listUsers,139990,1000);
-    OfficeSuite *fs2 = new OfficeSuite("Microsoft Excel","Microsoft",13,listUsers,139990,200);
-    OfficeSuite *fs3 = new OfficeSuite("Microsoft PowerPoint","Microsoft",13,listUsers,139990,700);
-    OfficeSuite *fs4 = new OfficeSuite("Microsoft Outlook","Microsoft",13,listUsers,139990,2000);
-    OfficeSuite *fs5 = new OfficeSuite("Microsoft OneNote","Microsoft",13,listUsers,139990,100);
+
+    vector<vector<int>> matrix(listUsers.getQtyUsers(),vector<int>(listOffices.size(),0));
+    matrix[0][0] = 1000;
+    matrix[1][2] = 500;
+    matrix[2][3] = 200;
+    matrix[2][2] = 500;
+    matrix[2][3] = 200;
+    matrix[15][0] = 1000;
+    matrix[15][3] = 200;
+
+    OfficeSuite *fs1 = new OfficeSuite("Microsoft Word","Microsoft",13,listUsers,139990,matrix);
+    OfficeSuite *fs2 = new OfficeSuite("Microsoft Excel","Microsoft",13,listUsers,139990,matrix);
+    OfficeSuite *fs3 = new OfficeSuite("Microsoft PowerPoint","Microsoft",13,listUsers,139990,matrix);
+    OfficeSuite *fs4 = new OfficeSuite("Microsoft Outlook","Microsoft",13,listUsers,139990,matrix);
+    OfficeSuite *fs5 = new OfficeSuite("Microsoft OneNote","Microsoft",13,listUsers,139990,matrix);
 
     listOffices.push_back(fs1);listOffices.push_back(fs2);listOffices.push_back(fs3);listOffices.push_back(fs4);listOffices.push_back(fs5);
 }

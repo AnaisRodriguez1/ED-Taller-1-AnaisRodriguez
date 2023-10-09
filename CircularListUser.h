@@ -57,8 +57,7 @@ class CircularListUser{
         }
 
         void see() {
-            NodeUser* actual = head;
-            
+            NodeUser* actual = head;    
 
             if (head == NULL) {// Si la cabeza es null, la lista está vacía
                 cout << "The list is empty";
