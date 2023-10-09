@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <vector>
 #include "CircularListUser.h"
 #include "Software.h"
 #include "OfficeSuite.h"
@@ -10,9 +11,44 @@
 #include "Security.h"
 #include "Social.h"
 #include "NodeUser.h"
-#include <vector>
+
 
 using namespace std;
+
+vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listUsers){
+    cout<<"\n";
+    for(int i=0;i<list.size();i++){
+        cout << "["<<i<<"] ";
+        list[i]->printName();
+    }
+    int index;
+    cout << "Enter the index of the software to delete:";
+    cin >> index;
+
+    cout << "To delete the software, it is necessary to ask all users if they agree. Do you want to proceed?\n[1] Yes\n[2] No\n";
+    int choice;
+    cin >>choice;
+
+    if(choice == 1){
+        bool agreement = listUsers.agreement();
+
+        if(agreement==true){
+            for(int i=0;i<list.size();i++){
+                cout << "["<<i<<"] ";
+                list[i]->printName();
+            }
+            list.erase(list.begin() + index);
+            cout << "The software has been successfully deleted.\n";
+        }
+        else{
+            cout << "The software was not deleted as approval from all users was not obtained.\n";
+        }
+    }
+    else{
+    }
+    return list;
+    
+}
 
 int main(){
 
@@ -154,7 +190,7 @@ int main(){
     string passLog;
 
     do {
-        cout << "WELCOME" << endl;
+        cout << " - WELCOME - \n" << endl;
         cout << "[1] Log In" << endl;
         cout << "[2] Exit the Program" << endl;
         cin >> exitProgram;
@@ -187,7 +223,7 @@ int main(){
         while (logIn) {
             //SI EL TIPO DEL USUARIO COINCIDE CON EL USUARIO NORMAL ENTRA A ESTE BUCLE, SINO...
             if (listUsers.searchType(userLog, passLog) == "Normal User") {
-                cout << "WELCOME USER" << endl;
+                cout << "WELCOME USER\n" << endl;
 
                 cout << "SOFTWARES:" << endl;
                 cout << "[1] Games" << endl;
@@ -202,20 +238,19 @@ int main(){
                 switch (loginChoice) {
                     case 1:
                         while(!back){
-                            cout << "Performing Games..." << endl;
-                            cout << "[1] Delete Game" << endl;
-                            cout << "[2] Add Game" << endl;
+                            cout << "\nPerforming Games...\n" << endl;
+                            cout << "[1] Delete game" << endl;
+                            cout << "[2] Add game" << endl;
                             cout << "[3] Change gender" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-3): ";
                             cin >> methodChoice;
 
                             switch(methodChoice){ 
-                                case 1:
-                                for(int i=0;i<listGames.size();i++){
-                                    cout << "["<<i<<"] ";
-                                    listGames[i]->printName();
-                                }                            
+                                case 1: 
+                                listGames = deleteSoftware (listGames,listUsers);
+                                back = false;
+
                                 break;
 
                                 case 2:

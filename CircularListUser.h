@@ -9,32 +9,34 @@ using namespace std;
 class CircularListUser{
     private:
     NodeUser* head;
-    int cantUsers;
+    int qtyUsers;
 
     public:
         CircularListUser(){
             head = NULL;
-            cantUsers = 0;
+            qtyUsers = 0;
         }
 
-        void insert(NodeUser* _newUser){
-            NodeUser* newUser = newUser;
-            
-            //Si la lista está vacía se designa que la cabeza es el nuevo Nodo
-            if(head == NULL){
-                newUser -> next = _newUser;
-                head = newUser;
-            //Si la lista ya tiene un nodo
-            // el siguiente del nuevo nodo será el siguiente de la cabeza
-            // el siguiente de la cabeza será el nuevo nodo
-            }else{
-                newUser -> next = head -> next;
-                head -> next = newUser;
-
-            }
-            //aumenta el numero de usuarios de la lista
-            cantUsers++;
+    void insert(NodeUser* _newUser) {
+        // Crear un nuevo nodo de usuario
+        NodeUser* newUser = _newUser;
+        
+        // Si la lista está vacía, se designa que la cabeza es el nuevo Nodo
+        if (head == NULL) {
+            newUser->next = newUser;
+            head = newUser;
+        } else {
+            // Si la lista ya tiene un nodo
+            // El siguiente del nuevo nodo será el siguiente de la cabeza
+            // El siguiente de la cabeza será el nuevo nodo
+            newUser->next = head->next;
+            head->next = newUser;
         }
+        
+        // Aumenta el número de usuarios de la lista
+        qtyUsers++;
+    }
+
 
         void see() {
             NodeUser* actual = head;
@@ -75,6 +77,37 @@ class CircularListUser{
             cout << endl;
             return type;
         }
+
+        int getQtyUsers (){
+            return qtyUsers;
+        }
+
+
+        bool agreement() {
+            bool agreement = true;
+            
+            NodeUser* actual = head;
+
+            // Si la cabeza es null, la lista está vacía
+
+            if (head == NULL) {
+                cout << "The list is empty";
+            } else {
+                do {
+                    int choice = 0;
+                    actual = actual->next;
+                    cout << actual->user << " are you in agreement?\n[1] Yes\n[2] No\n";
+                    cin >> choice;
+
+                    if(choice==2){
+                        agreement = false;
+                    }
+                        
+                } while (actual != head);
+            }
+            return agreement;
+        }
+
 
 };
 #endif

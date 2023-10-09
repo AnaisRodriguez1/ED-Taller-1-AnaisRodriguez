@@ -22,10 +22,5 @@ class Game : public Software {
             cout << name <<"\n";
         }
     };
-    
-
-
-    
-
 
 #endif
