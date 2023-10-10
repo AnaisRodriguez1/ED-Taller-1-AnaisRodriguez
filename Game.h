@@ -21,6 +21,14 @@ class Game : public Software {
         virtual void printName() override {
             cout << name <<"\n";
         }
+
+        string getGender(){
+            return gender;
+        }
+
+        void setGender(string _gender){
+            gender = _gender;
+        }
     };
 
 #endif

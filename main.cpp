@@ -138,12 +138,10 @@ vector<Software*> setListSecurities (CircularListUser listUsers,vector<Software*
 vector<Software*> setListSocials(CircularListUser listUsers,vector<Software*> listSocials){   
     //lista para amigos mayores a 18 años
     stack<NodeUser*> listFriends18;
-    listFriends18.push(listUsers.getUser(15));listFriends18.push(listUsers.getUser(14));
     Social *soc1 = new Social("Discord","Electron",18,listUsers,0,listFriends18);
 
     //lista para amigos menor a 18 años
     stack<NodeUser*> listFriends;
-    listFriends.push(listUsers.getUser(1));listFriends.push(listUsers.getUser(2));
     Social *soc2 = new Social("WhatsApp","Facebook Inc",16,listUsers,0,listFriends);
     return listSocials;
 }
@@ -171,6 +169,42 @@ vector<Software*> setListGamesToAdd(CircularListUser listUsers,vector<Software*>
     listGamesToAdd.push_back(game);
     return listGamesToAdd;
 }
+vector<Software*> setListProductionsToAdd(CircularListUser listUsers,vector<Software*> listProductionsToAdd){
+    Production *p5 = new Production("Logic Pro X", "Apple Inc", 18, listUsers, 199.99, "Audio");
+    Production *p6 = new Production("Premiere Pro", "Adobe Inc", 18, listUsers, 239.88, "Video");
+    Production *p7 = new Production("Streamlabs OBS", "Streamlabs", 18, listUsers, 0, "Streaming");
+    Production *p8 = new Production("GIMP", "The GIMP Team", 18, listUsers, 0, "Image");
+    listProductionsToAdd.push_back(p5);listProductionsToAdd.push_back(p6);listProductionsToAdd.push_back(p7);listProductionsToAdd.push_back(p8);
+    return listProductionsToAdd;
+}
+vector<Software*> setListBrowsersToAdd(CircularListUser listUsers,vector<Software*> listBrowsersToAdd){
+    vector<string> history = {""};
+    Browser *b3 = new Browser("Mozilla Firefox", "Mozilla Foundation", 13, listUsers, 0, history);
+    Browser *b4 = new Browser("Google Chrome", "Google LLC", 13, listUsers, 0, history);
+    Browser *b5 = new Browser("Safari", "Apple Inc", 13, listUsers, 0, history);
+    Browser *b6 = new Browser("Opera", "Opera Software", 13, listUsers, 0, history);
+    listBrowsersToAdd.push_back(b3);listBrowsersToAdd.push_back(b4);listBrowsersToAdd.push_back(b6);
+    return listBrowsersToAdd;
+}
+vector<Software*> setListSecuritiesToAdd(CircularListUser listUsers,vector<Software*> listSecuritiesToAdd){
+    Security *s7 = new Security("Avast Antivirus", "Avast Software", 18, listUsers, 0, "Viruses");
+    Security *s8 = new Security("McAfee Total Protection", "McAfee LLC", 18, listUsers, 2999, "Malware");
+    Security *s9 = new Security("Bitdefender Antivirus Plus", "Bitdefender", 18, listUsers, 1999, "Phishing");
+    Security *s10 = new Security("ESET NOD32 Antivirus", "ESET", 18, listUsers, 2995, "Spyware");
+    listSecuritiesToAdd.push_back(s7);listSecuritiesToAdd.push_back(s8);listSecuritiesToAdd.push_back(s9);listSecuritiesToAdd.push_back(s10);
+    return listSecuritiesToAdd;
+}
+vector<Software*> setListSocialsToAdd(CircularListUser listUsers,vector<Software*> listSocialsToAdd){
+    //lista para amigos mayores a 18 años
+    stack<NodeUser*> listFriends18;
+    Social *soc2 = new Social("Facebook", "Meta Platforms, Inc.", 18, listUsers, 0, listFriends18);
+    listFriends18.push(listUsers.getUser(15));listFriends18.push(listUsers.getUser(14));
+    //lista para amigos menor a 18 años
+    stack<NodeUser*> listFriends;
+    listFriends.push(listUsers.getUser(1));listFriends.push(listUsers.getUser(2));
+    Social *soc4 = new Social("Instagram", "Meta Platforms, Inc.", 17, listUsers, 0, listFriends);
+    return listSocialsToAdd;
+}
 
 vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listUsers){
     cout<<"\n";
@@ -190,11 +224,13 @@ vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listU
         bool agreement = listUsers.agreement();
 
         if(agreement==true){
+            list.erase(list.begin() + index);
+            cout<<"\nThese are the games within the software:";
             for(size_t i=0;i<list.size();i++){
                 cout << "["<<i<<"] ";
                 list[i]->printName();
             }
-            list.erase(list.begin() + index);
+            
             cout << "The software has been successfully deleted.\n";
         }
         else{
@@ -211,15 +247,21 @@ vector<Software*> addSoftware (vector<Software*> list,vector<Software*> listToAd
         cout << "["<<i<<"] ";
         listToAdd[i]->printName();    
     }
-    cout << "Escoge el indice del software que quieres añadir";
+    cout << "Choose the index of the software you want to add:";
     int indexChoice;
     cin >> indexChoice;
     list.push_back(listToAdd[indexChoice]);
+    
+    cout<<"\nThese are the games within the software:";
+    for(size_t i=0 ; i<list.size() ; i++){
+        cout << "["<<i<<"] ";
+        list[i]->printName();    
+    }
     return list;
 }
 
 int main(){
-    cout << "HOLA";
+
     // CONDICIONES DE ENTREGA 
     CircularListUser listUsers; //lista circular de punteros de Usuarios
     vector<Software*> listGames; // lista de vector de punteros para Software de Juego
@@ -233,25 +275,32 @@ int main(){
     listUsers = setListUsers (listUsers);
 
     //POBLAR SOFTWARE DE JUEGOS*************   
-    listGames = setListGames(listUsers,listGames);
-    
-    //vector<Software*> listGamesToAdd;
-    //listGamesToAdd = setListGamesToAdd(listUsers,listGamesToAdd);
+    listGames = setListGames(listUsers,listGames);   
+    vector<Software*> listGamesToAdd;
+    listGamesToAdd = setListGamesToAdd(listUsers,listGamesToAdd);
 
-    //POBLAR SOFTWARE DE OFIMATICA*************
-    listOffices = setListOfficeSuites(listUsers,listOffices);
+    //POBLAR SOFTWARE DE OFIMATICA*************ERROR AL DESCOMENTAR POR INICIALIZACIÓN
+    //listOffices = setListOfficeSuites(listUsers,listOffices); 
 
     //POBLAR SOFTWARE DE PRODUCCION*************
     listProductions = setListProductions(listUsers,listProductions);
+    vector<Software*>listProductionsToAdd;
+    listProductionsToAdd = setListProductionsToAdd(listUsers,listProductionsToAdd);
 
     //POBLAR SOFTWARE DE NAVEGADOR*************
     listBrowsers = setListProductions(listUsers,listBrowsers);
+    vector<Software*>listBrowsersToAdd;
+    listBrowsersToAdd = setListBrowsersToAdd(listUsers,listBrowsersToAdd);
 
     //POBLAR SOFTWARE DE SEGURIDAD*************
     listSecurities = setListSecurities(listUsers,listSecurities);
+    vector<Software*>listSecuritiesToAdd;
+    listSecuritiesToAdd = setListSecuritiesToAdd(listUsers,listSecuritiesToAdd);
 
     //POBLAR SOFTWARE DE SOCIAL*************
     listSocials = setListSocials(listUsers, listSocials);
+    vector<Software*>listSocialsToAdd;
+    listSocialsToAdd = setListSocialsToAdd(listUsers,listSocialsToAdd);
 
     //LOGICA PARA CREAR BUCLE ENTRE EL LOGIN, LOGOUT Y EXIT DEL PROGRAMA
     int exitProgram;
@@ -297,7 +346,6 @@ int main(){
             //SI EL TIPO DEL USUARIO COINCIDE CON EL USUARIO NORMAL ENTRA A ESTE BUCLE, SINO...
             if (listUsers.searchType(userLog, passLog) == "Normal User") {
                 cout << "WELCOME USER\n" << endl;
-
                 cout << "SOFTWARES:" << endl;
                 cout << "[1] Games" << endl;
                 cout << "[2] Office Suites" << endl;
@@ -310,27 +358,55 @@ int main(){
                 
                 switch (loginChoice) {
                     case 1:
-                        while(!back){
-                            
+                        while(!back){                     
                             cout << "\nPerforming Games...\n" << endl;
                             cout << "[1] Delete game" << endl;
                             cout << "[2] Add game" << endl;
                             cout << "[3] Change gender" << endl;
                             cout << "[4] Go back" << endl;
-                            cout << "Choose an option (1-3): ";
+                            cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
+                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
 
                             switch(methodChoice){ 
                                 case 1: 
                                     listGames = deleteSoftware (listGames,listUsers);
-                                    back = false;
                                 break;
 
                                 case 2:
-                                //listGames = addSoftware(listGames,listGamesToAdd,listUsers);
+                                    listGames = addSoftware(listGames,listGamesToAdd,listUsers);
                                 break; 
 
-                                case 3:
+                                case 3:                                    
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listGames.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                        gamePtr->printName();
+                                        cout << " Gender: " << gamePtr->getGender() << endl;
+                                    }
+                                    // Solicitar al usuario seleccionar un índice y género
+                                    size_t selectedIndex;
+                                    cout << "Select an index to change the gender: ";
+                                    cin >> selectedIndex;
+
+                                    if (selectedIndex < listGames.size()) {
+                                        Game* selectedGame = dynamic_cast<Game*>(listGames[selectedIndex]);
+                                        string newGender;
+                                        cout << "Enter the new gender: ";
+                                        cin >> newGender;
+                                        selectedGame->setGender(newGender);
+                                        cout << "Gender changed successfully.\n" << endl;
+
+                                        for (size_t i = 0; i < listGames.size(); i++) {
+                                            cout << "[" << i << "] ";
+                                            Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                            gamePtr->printName();
+                                            cout << " Gender: " << gamePtr->getGender() << endl;
+                                        }
+                                    } else {
+                                        cout << "Index out of range." << endl;
+                                    }
                                 break;
 
                                 case 4:
@@ -340,25 +416,147 @@ int main(){
                                 default:
                                 cout << "Invalid option. Please choose a valid option." << endl;
                                 break;
-
                             }
                         }
                         break;
+
                     case 2:
+                    /*
+                    while(!back){  
                         cout << "Performing Office Suites..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
+
+                        for (size_t i = 0; i < listOffices.size(); i++) {
+                            cout << "[" << i << "] ";
+                            listOffices[i]->printName();
+                        }
+                        int selectedIndex;
+                        cout << "Enter the index to get the pointer: ";
+                        cin >> selectedIndex;
+                        OfficeSuite* selectedOffice = dynamic_cast<OfficeSuite*>(listOffices[selectedIndex]);
+
+                        cout << "[1] Delete Office Suites" << endl;
+                        cout << "[2] Add Office Suites" << endl;
+                        cout << "[3] Delete user files" << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+
+                            break;
+                            
+                            case 2:
+                            break;
+
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }*/
                         break;
                     case 3:
+                        while(!back){  
                         cout << "Performing Productions..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
+                        cout << "[1] Delete Productions Software" << endl;
+                        cout << "[2] Add Productions Software" << endl;
+                        cout << "[3] " << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+                                listProductions = deleteSoftware(listProductions,listUsers);
+                            break;   
+                            case 2:
+                            break;
+                                listProductions = addSoftware (listProductions,listProductionsToAdd,listUsers);
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }
                         break;
                     case 4:
-                        cout << "Performing Browsers..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
-                        break;
+                        while(!back){  
+                            cout << "Performing Browsers..." << endl;
+                            cout << "[1] Delete Browsers Software" << endl;
+                            cout << "[2] Add Browsers Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listBrowsers = deleteSoftware(listBrowsers,listUsers);
+                                break;
+                                case 2:
+                                    listBrowsers = addSoftware(listBrowsers,listBrowsersToAdd,listUsers);
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
+                            break;
                     case 5:
-                        cout << "Performing Socials..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
+                        while(!back){  
+                            cout << "Performing Socials..." << endl;
+                            cout << "[1] Delete Socials Software" << endl;
+                            cout << "[2] Add Socials Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listSocials = deleteSoftware(listSocials,listUsers);
+                                break;
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
+                                case 2:
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
                         break;
                     case 6:
                         cout << "Logging Out." << endl;
@@ -371,59 +569,447 @@ int main(){
 
             //SI EL TIPO DEL USUARIO COINCIDE CON EL ADMINISTRADOR ENTRA A ESTE BUCLE, SINO...
             } else if (listUsers.searchType(userLog, passLog) == "Administrator") {
-                cout << "WELCOME ADMINISTRATOR" << endl;
-
-                cout << "Menu After Login:" << endl;
-                cout << "1. Option 1" << endl;
-                cout << "2. Option 2" << endl;
-                cout << "3. Log Out" << endl;
-                cout << "Choose an option (1-3): ";
+                cout << "SOFTWARES:" << endl;
+                cout << "[1] Games" << endl;
+                cout << "[2] Office Suites" << endl;
+                cout << "[3] Productions" << endl;
+                cout << "[4] Browsers" << endl;
+                cout << "[5] Socials" << endl;
+                cout << "[6] Log Out" << endl;
+                cout << "Choose an option (1-6): ";
                 cin >> loginChoice;
-
+                
                 switch (loginChoice) {
                     case 1:
-                        cout << "Performing Option 1..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 1.
+                        while(!back){                     
+                            cout << "\nPerforming Games...\n" << endl;
+                            cout << "[1] Delete game" << endl;
+                            cout << "[2] Add game" << endl;
+                            cout << "[3] Change gender" << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
+
+                            switch(methodChoice){ 
+                                case 1: 
+                                    listGames = deleteSoftware (listGames,listUsers);
+                                break;
+
+                                case 2:
+                                    listGames = addSoftware(listGames,listGamesToAdd,listUsers);
+                                break; 
+
+                                case 3:                                    
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listGames.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                        gamePtr->printName();
+                                        cout << " Gender: " << gamePtr->getGender() << endl;
+                                    }
+                                    // Solicitar al usuario seleccionar un índice y género
+                                    size_t selectedIndex;
+                                    cout << "Select an index to change the gender: ";
+                                    cin >> selectedIndex;
+
+                                    if (selectedIndex < listGames.size()) {
+                                        Game* selectedGame = dynamic_cast<Game*>(listGames[selectedIndex]);
+                                        string newGender;
+                                        cout << "Enter the new gender: ";
+                                        cin >> newGender;
+                                        selectedGame->setGender(newGender);
+                                        cout << "Gender changed successfully.\n" << endl;
+
+                                        for (size_t i = 0; i < listGames.size(); i++) {
+                                            cout << "[" << i << "] ";
+                                            Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                            gamePtr->printName();
+                                            cout << " Gender: " << gamePtr->getGender() << endl;
+                                        }
+                                    } else {
+                                        cout << "Index out of range." << endl;
+                                    }
+                                break;
+
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                            }
+                        }
                         break;
+
                     case 2:
-                        cout << "Performing Option 2..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
+                    /*
+                    while(!back){  
+                        cout << "Performing Office Suites..." << endl;
+
+                        for (size_t i = 0; i < listOffices.size(); i++) {
+                            cout << "[" << i << "] ";
+                            listOffices[i]->printName();
+                        }
+                        int selectedIndex;
+                        cout << "Enter the index to get the pointer: ";
+                        cin >> selectedIndex;
+                        OfficeSuite* selectedOffice = dynamic_cast<OfficeSuite*>(listOffices[selectedIndex]);
+
+                        cout << "[1] Delete Office Suites" << endl;
+                        cout << "[2] Add Office Suites" << endl;
+                        cout << "[3] Delete user files" << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+
+                            break;
+                            
+                            case 2:
+                            break;
+
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }*/
                         break;
                     case 3:
+                        while(!back){  
+                        cout << "Performing Productions..." << endl;
+                        cout << "[1] Delete Productions Software" << endl;
+                        cout << "[2] Add Productions Software" << endl;
+                        cout << "[3] " << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+                                listProductions = deleteSoftware(listProductions,listUsers);
+                            break;   
+                            case 2:
+                            break;
+                                listProductions = addSoftware (listProductions,listProductionsToAdd,listUsers);
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }
+                        break;
+                    case 4:
+                        while(!back){  
+                            cout << "Performing Browsers..." << endl;
+                            cout << "[1] Delete Browsers Software" << endl;
+                            cout << "[2] Add Browsers Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listBrowsers = deleteSoftware(listBrowsers,listUsers);
+                                break;
+                                case 2:
+                                    listBrowsers = addSoftware(listBrowsers,listBrowsersToAdd,listUsers);
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
+                            break;
+                    case 5:
+                        while(!back){  
+                            cout << "Performing Socials..." << endl;
+                            cout << "[1] Delete Socials Software" << endl;
+                            cout << "[2] Add Socials Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listSocials = deleteSoftware(listSocials,listUsers);
+                                break;
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
+                                case 2:
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
+                        break;
+                    case 6:
                         cout << "Logging Out." << endl;
-                        logIn = false;  // El administrador cierra la sesión.
+                        logIn = false;  // Sale del ciclo y vuelve al while anterior
                         break;
                     default:
-                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        cout << "Invalid option. Please choose a valid option." << endl;
                         break;
                 }
 
             //SI EL TIPO DEL USUARIO COINCIDE CON "NIÑO" ENTRA A ESTE BUCLE.
             } else if (listUsers.searchType(userLog, passLog) == "Children") {
-                cout << "WELCOME CHILDREN" << endl;
-
-                cout << "Menu After Login:" << endl;
-                cout << "1. Option 1" << endl;
-                cout << "2. Option 2" << endl;
-                cout << "3. Log Out" << endl;
-                cout << "Choose an option (1-3): ";
+cout << "SOFTWARES:" << endl;
+                cout << "[1] Games" << endl;
+                cout << "[2] Office Suites" << endl;
+                cout << "[3] Productions" << endl;
+                cout << "[4] Browsers" << endl;
+                cout << "[5] Socials" << endl;
+                cout << "[6] Log Out" << endl;
+                cout << "Choose an option (1-6): ";
                 cin >> loginChoice;
-
+                
                 switch (loginChoice) {
                     case 1:
-                        cout << "Performing Option 1..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 1.
+                        while(!back){                     
+                            cout << "\nPerforming Games...\n" << endl;
+                            cout << "[1] Delete game" << endl;
+                            cout << "[2] Add game" << endl;
+                            cout << "[3] Change gender" << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
+
+                            switch(methodChoice){ 
+                                case 1: 
+                                    listGames = deleteSoftware (listGames,listUsers);
+                                break;
+
+                                case 2:
+                                    listGames = addSoftware(listGames,listGamesToAdd,listUsers);
+                                break; 
+
+                                case 3:                                    
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listGames.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                        gamePtr->printName();
+                                        cout << " Gender: " << gamePtr->getGender() << endl;
+                                    }
+                                    // Solicitar al usuario seleccionar un índice y género
+                                    size_t selectedIndex;
+                                    cout << "Select an index to change the gender: ";
+                                    cin >> selectedIndex;
+
+                                    if (selectedIndex < listGames.size()) {
+                                        Game* selectedGame = dynamic_cast<Game*>(listGames[selectedIndex]);
+                                        string newGender;
+                                        cout << "Enter the new gender: ";
+                                        cin >> newGender;
+                                        selectedGame->setGender(newGender);
+                                        cout << "Gender changed successfully.\n" << endl;
+
+                                        for (size_t i = 0; i < listGames.size(); i++) {
+                                            cout << "[" << i << "] ";
+                                            Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
+                                            gamePtr->printName();
+                                            cout << " Gender: " << gamePtr->getGender() << endl;
+                                        }
+                                    } else {
+                                        cout << "Index out of range." << endl;
+                                    }
+                                break;
+
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                            }
+                        }
                         break;
+
                     case 2:
-                        cout << "Performing Option 2..." << endl;
-                        // Realiza las acciones correspondientes para la Opción 2.
+                    /*
+                    while(!back){  
+                        cout << "Performing Office Suites..." << endl;
+
+                        for (size_t i = 0; i < listOffices.size(); i++) {
+                            cout << "[" << i << "] ";
+                            listOffices[i]->printName();
+                        }
+                        int selectedIndex;
+                        cout << "Enter the index to get the pointer: ";
+                        cin >> selectedIndex;
+                        OfficeSuite* selectedOffice = dynamic_cast<OfficeSuite*>(listOffices[selectedIndex]);
+
+                        cout << "[1] Delete Office Suites" << endl;
+                        cout << "[2] Add Office Suites" << endl;
+                        cout << "[3] Delete user files" << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+
+                            break;
+                            
+                            case 2:
+                            break;
+
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }*/
                         break;
                     case 3:
+                        while(!back){  
+                        cout << "Performing Productions..." << endl;
+                        cout << "[1] Delete Productions Software" << endl;
+                        cout << "[2] Add Productions Software" << endl;
+                        cout << "[3] " << endl;
+                        cout << "[4] Go back" << endl;
+                        cout << "Choose an option (1-4): ";
+                        cin >> methodChoice;
+
+                        switch(methodChoice){
+                            case 1:
+                                listProductions = deleteSoftware(listProductions,listUsers);
+                            break;   
+                            case 2:
+                            break;
+                                listProductions = addSoftware (listProductions,listProductionsToAdd,listUsers);
+                            case 3:
+                            break;
+                            
+                            case 4:
+                            back=true;
+                            break;
+
+                            default:
+                            cout << "Invalid option. Please choose a valid option." << endl;
+                            break;
+                            
+                        }
+                    }
+                        break;
+                    case 4:
+                        while(!back){  
+                            cout << "Performing Browsers..." << endl;
+                            cout << "[1] Delete Browsers Software" << endl;
+                            cout << "[2] Add Browsers Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listBrowsers = deleteSoftware(listBrowsers,listUsers);
+                                break;
+                                case 2:
+                                    listBrowsers = addSoftware(listBrowsers,listBrowsersToAdd,listUsers);
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
+                            break;
+                    case 5:
+                        while(!back){  
+                            cout << "Performing Socials..." << endl;
+                            cout << "[1] Delete Socials Software" << endl;
+                            cout << "[2] Add Socials Software" << endl;
+                            cout << "[3] " << endl;
+                            cout << "[4] Go back" << endl;
+                            cout << "Choose an option (1-4): ";
+                            cin >> methodChoice;
+
+                            switch(methodChoice){
+                                case 1:
+                                    listSocials = deleteSoftware(listSocials,listUsers);
+                                break;
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
+                                case 2:
+                                break;
+
+                                case 3:
+                                break;
+                                
+                                case 4:
+                                back=true;
+                                break;
+
+                                default:
+                                cout << "Invalid option. Please choose a valid option." << endl;
+                                break;
+                                
+                            }
+                        }
+                        break;
+                    case 6:
                         cout << "Logging Out." << endl;
-                        logIn = false;  // Los niños cierran la sesión.
+                        logIn = false;  // Sale del ciclo y vuelve al while anterior
                         break;
                     default:
-                        cout << "Invalid option. Please choose a valid option (1-3)." << endl;
+                        cout << "Invalid option. Please choose a valid option." << endl;
                         break;
                 }
             }
