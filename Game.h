@@ -30,5 +30,4 @@ class Game : public Software {
             gender = _gender;
         }
     };
-
 #endif

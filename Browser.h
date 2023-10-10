@@ -15,6 +15,8 @@ class Browser : public Software {
         Browser(string _name, string _dev, int _age, CircularListUser _list, int _price, vector<string> _history) : Software(_name, _dev, _age, _list, _price),history(_history){
             this->history = _history;
         }
-
+        virtual void printName() override {
+            cout << name <<"\n";
+        }
 };
 #endif

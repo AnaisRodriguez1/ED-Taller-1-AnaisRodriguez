@@ -9,14 +9,17 @@
 using namespace std;
 
 class OfficeSuite : public Software {
-private:
-    vector<vector<int>> matrix; // Declarar una matriz
+    private:
+        vector<vector<int>> matrix; // Declarar una matriz
 
-public:
-    OfficeSuite(string _name, string _dev, int _age, CircularListUser _list, int _price, vector<vector<int>> _matrix)
-        : Software(_name, _dev, _age, _list, _price), matrix(_matrix) {
-        // Inicializa la matriz en el constructor
-    }
-};
+    public:
+        OfficeSuite(string _name, string _dev, int _age, CircularListUser _list, int _price, vector<vector<int>> _matrix)
+            : Software(_name, _dev, _age, _list, _price), matrix(_matrix) {
+            // Inicializa la matriz en el constructor
+        }
+        virtual void printName() override {
+            cout << name <<"\n";
+        }
+    };
 
 #endif

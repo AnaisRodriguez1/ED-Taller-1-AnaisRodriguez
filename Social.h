@@ -6,7 +6,6 @@
 #include <string>
 #include <stack>
 
-
 using namespace std;
 
 class Social : public Software{
@@ -15,6 +14,9 @@ class Social : public Software{
     public:
         Social(string _name, string _dev, int _age, CircularListUser _list, int _price, stack<NodeUser*> _listFriends) : Software(_name, _dev, _age, _list, _price),listFriends(_listFriends){
             this->listFriends=_listFriends;
+        }
+        virtual void printName() override {
+            cout << name <<"\n";
         }
 };
 

@@ -14,6 +14,8 @@ class Production : public Software {
         Production(string _name, string _dev, int _age, CircularListUser _list, int _price, string _type) : Software(_name, _dev, _age, _list, _price), type(_type){
             this->type = _type;
         }
-
+        virtual void printName() override {
+            cout << name <<"\n";
+        }
 };
 #endif
