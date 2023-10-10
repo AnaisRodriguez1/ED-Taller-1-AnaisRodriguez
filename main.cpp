@@ -174,7 +174,7 @@ vector<Software*> setListGamesToAdd(CircularListUser listUsers,vector<Software*>
 
 vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listUsers){
     cout<<"\n";
-    for(int i=0;i<list.size();i++){
+    for(size_t i=0;i<list.size();i++){
         cout << "["<<i<<"] ";
         list[i]->printName();
     }
@@ -190,7 +190,7 @@ vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listU
         bool agreement = listUsers.agreement();
 
         if(agreement==true){
-            for(int i=0;i<list.size();i++){
+            for(size_t i=0;i<list.size();i++){
                 cout << "["<<i<<"] ";
                 list[i]->printName();
             }
@@ -207,7 +207,7 @@ vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listU
 }
 vector<Software*> addSoftware (vector<Software*> list,vector<Software*> listToAdd,CircularListUser listUsers){
     cout<<"\n";
-    for(int i=0 ; i<listToAdd.size() ; i++){
+    for(size_t i=0 ; i<listToAdd.size() ; i++){
         cout << "["<<i<<"] ";
         listToAdd[i]->printName();    
     }
@@ -219,6 +219,7 @@ vector<Software*> addSoftware (vector<Software*> list,vector<Software*> listToAd
 }
 
 int main(){
+    cout << "HOLA";
     // CONDICIONES DE ENTREGA 
     CircularListUser listUsers; //lista circular de punteros de Usuarios
     vector<Software*> listGames; // lista de vector de punteros para Software de Juego
@@ -428,4 +429,6 @@ int main(){
             }
         }
     }while(true);
+    
+    return 0;
 }
