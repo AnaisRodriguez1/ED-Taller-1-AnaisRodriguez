@@ -34,5 +34,9 @@ class NodeUser {
         string getType (){
             return type;
         }
+
+        int getAge(){
+            return age;
+        }
 };
 #endif

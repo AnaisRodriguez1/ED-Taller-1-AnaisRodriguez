@@ -17,5 +17,13 @@ class Security : public Software {
         virtual void printName() override {
             cout << name <<"\n";
         }
+
+        string getMalware(){
+            return typeMalware;
+        }
+
+        void setMalware(string _malware){
+            typeMalware = _malware;
+        }
 };
 #endif

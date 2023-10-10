@@ -144,6 +144,7 @@ vector<Software*> setListSocials(CircularListUser listUsers,vector<Software*> li
     //lista para amigos menor a 18 años
     stack<NodeUser*> listFriends;
     Social *soc2 = new Social("WhatsApp","Facebook Inc",16,listUsers,0,listFriends);
+    listSocials.push_back(soc1);listSocials.push_back(soc2);
     return listSocials;
 }
 
@@ -369,7 +370,6 @@ int main(){
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
-                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
 
                             switch(methodChoice){ 
                                 case 1: 
@@ -382,25 +382,31 @@ int main(){
 
                                 case 3:                                    
                                     cout << "\n";
+                                    //se printean todos los software de juegos para poder escoger uno el usuario
                                     for (size_t i = 0; i < listGames.size(); i++) {
                                         cout << "[" << i << "] ";
                                         Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
                                         gamePtr->printName();
                                         cout << " Gender: " << gamePtr->getGender() << endl;
                                     }
-                                    // Solicitar al usuario seleccionar un índice y género
+                                    // Solicitar al usuario seleccionar un índice
                                     size_t selectedIndex;
                                     cout << "Select an index to change the gender: ";
                                     cin >> selectedIndex;
 
+                                    //condicion para que no hayan errores de inicializacion por el switch
                                     if (selectedIndex < listGames.size()) {
+                                        //se encuentra la clase hija para realizar los cambios a sus atributos unicos
                                         Game* selectedGame = dynamic_cast<Game*>(listGames[selectedIndex]);
+                                        //se pregunta por el genero que le quiere cambiar al juego
                                         string newGender;
                                         cout << "Enter the new gender: ";
                                         cin >> newGender;
+                                        //se cambia gracias al casteo
                                         selectedGame->setGender(newGender);
                                         cout << "Gender changed successfully.\n" << endl;
 
+                                        //se vuelve a printear la lista de juegos para ver los cambios realizados
                                         for (size_t i = 0; i < listGames.size(); i++) {
                                             cout << "[" << i << "] ";
                                             Game* gamePtr = dynamic_cast<Game*>(listGames[i]);
@@ -425,6 +431,7 @@ int main(){
 
                     case 2:
                     /*
+                    no pude hacerlo, por errores de la matriz uu
                     while(!back){  
                         cout << "Performing Office Suites..." << endl;
 
@@ -471,11 +478,10 @@ int main(){
                             cout << "Performing Productions..." << endl;
                             cout << "[1] Delete Productions Software" << endl;
                             cout << "[2] Add Productions Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Change type of Software" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
-
                             switch(methodChoice){
                                 case 1:
                                     listProductions = deleteSoftware(listProductions,listUsers);
@@ -485,6 +491,40 @@ int main(){
                                 break;
                                     
                                 case 3:
+                                    size_t selectedIndex;
+                                    //printea la lista y su tipo/genero para que el usuario pueda escoger el indice
+                                    for (size_t i = 0; i < listProductions.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Production* productionPtr = dynamic_cast<Production*>(listProductions[i]);
+                                        productionPtr->printName();
+                                        cout << " Gender: " << productionPtr->getType() << endl;
+                                    }
+                                    //escoge el indice de la lista
+                                    cout << "Select an index to change the type: ";
+                                    cin >> selectedIndex;
+                                    //condicion siempre verdadera, para que no tenga confusiones con el switch por la inicializacion de variables
+                                    if (selectedIndex >= 0 && selectedIndex < listProductions.size()) {
+                                        cout << "Enter the new type: ";
+                                        string newType;
+                                        cin >> newType;
+                                        
+                                        //se obtiene la clase hija para acceder a sus atributos unicos y así poder manipularlos
+                                        Production* selectedProduction = dynamic_cast<Production*>(listProductions[selectedIndex]);
+                                        if (selectedProduction) {
+                                            selectedProduction->setType(newType);
+                                            cout << "Type changed successfully." << endl;
+                                        } else {
+                                            cout << "Invalid production." << endl;
+                                        }
+
+                                    //print para ver los cambios
+                                    for (size_t i = 0; i < listProductions.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Production* productionPtr = dynamic_cast<Production*>(listProductions[i]);
+                                        productionPtr->printName();
+                                        cout << " Gender: " << productionPtr->getType() << endl;
+                                    }
+                                    }
                                 break;
                                 
                                 case 4:
@@ -503,7 +543,7 @@ int main(){
                             cout << "Performing Browsers..." << endl;
                             cout << "[1] Delete Browsers Software" << endl;
                             cout << "[2] Add Browsers Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Clear history" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
@@ -517,6 +557,21 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Browser* browserPtr;
+                                    int index;
+
+                                    //Se printean todos los software de social para poder seleccionar el indice
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listBrowsers.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listBrowsers[i]->printName();
+                                    }
+
+                                    cout << "Select an index of Social Software: ";
+                                    cin >> index;
+                                    //se busca la clase hija y se le aplica la limpieza de historial
+                                    browserPtr = dynamic_cast<Browser*>(listBrowsers[index]);
+                                    browserPtr->clearHistory();
                                 break;
                                 
                                 case 4:
@@ -535,10 +590,11 @@ int main(){
                             cout << "Performing Socials..." << endl;
                             cout << "[1] Delete Socials Software" << endl;
                             cout << "[2] Add Socials Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Add friends" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
+                            stack<NodeUser*> listChildren;
 
                             switch(methodChoice){
                                 case 1:
@@ -549,6 +605,37 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Social* socialPtr;
+                                    int index;
+                                    //se printean todos los software de social para que el usuario pueda escoger
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listSocials.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listSocials[i]->printName();
+                                    }
+                                    
+                                    //se escoge el indice
+                                    cout << "Select a Social Software: ";
+                                    cin >> index;
+                                    // se encuentra la clase hija para poder modificar sus atributos unicos utilizando casteo
+                                    socialPtr = dynamic_cast<Social*>(listSocials[index]);
+                                    listChildren = socialPtr->getList();
+
+                                    //ya escogido el software social que queremos agregar amigos
+                                    //se printea la lista de usuarios mayores/menores de 18 segun corresponda
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listUsers.getQtyUsers(); i++) {
+                                        if (listUsers.getUser(i)->age > 18) {
+                                            cout << "[" << i << "] ";
+                                            cout << listUsers.getUser(i)->user << "\n";
+                                        }
+                                    }  
+                                    //se= escoge el amigo y se agrega a la lista establecida dentro del software
+                                    int friendIndex;
+                                    cout << "Select an index to add a friend: ";
+                                    cin >> friendIndex;
+                                    listChildren.push(listUsers.getUser(friendIndex));
+                                    back = false;
                                 break;
                                 
                                 case 4:
@@ -557,8 +644,7 @@ int main(){
 
                                 default:
                                 cout << "Invalid option. Please choose a valid option." << endl;
-                                break;
-                                
+                                break;     
                             }
                         }
                         break;
@@ -597,7 +683,6 @@ int main(){
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
-                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
 
                             switch(methodChoice){ 
                                 case 1: 
@@ -656,11 +741,10 @@ int main(){
                         cout << "Performing Productions..." << endl;
                         cout << "[1] Delete Productions Software" << endl;
                         cout << "[2] Add Productions Software" << endl;
-                        cout << "[3] " << endl;
+                        cout << "[3] Change type of Software" << endl;
                         cout << "[4] Go back" << endl;
                         cout << "Choose an option (1-4): ";
                         cin >> methodChoice;
-
                         switch(methodChoice){
                             case 1:
                                 listProductions = deleteSoftware(listProductions,listUsers);
@@ -670,6 +754,30 @@ int main(){
                             break;
                                 
                             case 3:
+                                size_t selectedIndex;
+                                for (size_t i = 0; i < listProductions.size(); i++) {
+                                    cout << "[" << i << "] ";
+                                    Production* productionPtr = dynamic_cast<Production*>(listProductions[i]);
+                                    productionPtr->printName();
+                                    cout << " Gender: " << productionPtr->getType() << endl;
+                                }
+
+                                cout << "Select an index to change the type: ";
+                                cin >> selectedIndex;
+
+                                if (selectedIndex >= 0 && selectedIndex < listProductions.size()) {
+                                    cout << "Enter the new type: ";
+                                    string newType;
+                                    cin >> newType;
+                                    
+                                    Production* selectedProduction = dynamic_cast<Production*>(listProductions[selectedIndex]);
+                                    if (selectedProduction) {
+                                        selectedProduction->setType(newType);
+                                        cout << "Type changed successfully." << endl;
+                                    } else {
+                                        cout << "Invalid production." << endl;
+                                    }
+                                }
                             break;
                             
                             case 4:
@@ -688,7 +796,7 @@ int main(){
                             cout << "Performing Browsers..." << endl;
                             cout << "[1] Delete Browsers Software" << endl;
                             cout << "[2] Add Browsers Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Clear history" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
@@ -702,6 +810,19 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Browser* browserPtr;
+                                    int index;
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listBrowsers.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listBrowsers[i]->printName();
+                                    }
+
+                                    cout << "Select a Social Software: ";
+                                    cin >> index;
+                                    browserPtr = dynamic_cast<Browser*>(listBrowsers[index]);
+                                    browserPtr->clearHistory();
                                 break;
                                 
                                 case 4:
@@ -720,10 +841,11 @@ int main(){
                             cout << "Performing Socials..." << endl;
                             cout << "[1] Delete Socials Software" << endl;
                             cout << "[2] Add Socials Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Add friends" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
+                            stack<NodeUser*> listChildren;
 
                             switch(methodChoice){
                                 case 1:
@@ -735,6 +857,33 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Social* socialPtr;
+                                    int index;
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listSocials.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listSocials[i]->printName();
+                                    }
+
+                                    cout << "Select a Social Software: ";
+                                    cin >> index;
+                                    socialPtr = dynamic_cast<Social*>(listSocials[index]);
+                                    listChildren = socialPtr->getList();
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listUsers.getQtyUsers(); i++) {
+                                        if (listUsers.getUser(i)->age > 18) {
+                                            cout << "[" << i << "] ";
+                                            cout << listUsers.getUser(i)->user << "\n";
+                                        }
+                                    }
+
+                                    int friendIndex;
+                                    cout << "Select an index to add a friend: ";
+                                    cin >> friendIndex;
+                                    listChildren.push(listUsers.getUser(friendIndex));
+                                    back = false;
                                 break;
                                 
                                 case 4:
@@ -753,7 +902,7 @@ int main(){
                             cout << "Performing Securities..." << endl;
                             cout << "[1] Delete Securities Software" << endl;
                             cout << "[2] Add Securities Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Change Type of Malware" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
@@ -768,6 +917,38 @@ int main(){
                                 break;
 
                                 case 3:
+                                    //se printean todos los softwares de seguridad
+                                    size_t selectedIndex;
+                                    for (size_t i = 0; i < listSecurities.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Security* securityPtr = dynamic_cast<Security*>(listSecurities[i]);
+                                        securityPtr->printName();
+                                        cout << " Malware: " << securityPtr->getMalware() << endl;
+                                    }
+                                    //se escoge el indice del cual se le quieren realizar cambios
+                                    cout << "Select an index to change the type of malware: ";
+                                    cin >> selectedIndex;
+                                    //condicion para que sea verdadero y no hayan problemas de inicializacion del switch
+                                    if (selectedIndex >= 0 && selectedIndex < listSecurities.size()) {
+                                        //se escoge el nuevo malware que se quiere cambiar
+                                        cout << "Enter the new Malware: ";
+                                        string newMalware;
+                                        cin >> newMalware;
+                                        
+                                        //se encuentra la clase hija para poder realizarle los cambios a sus atributos unicos
+                                        Security* selectedSecurity = dynamic_cast<Security*>(listSecurities[selectedIndex]);
+                                        if (selectedSecurity) {
+                                            selectedSecurity->setMalware(newMalware);
+                                            cout << "Type changed successfully." << endl;
+                                        }
+                                    }
+                                    //se vuelve a printear la lista para ver los cambios realizados 
+                                    for (size_t i = 0; i < listSecurities.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        Security* securityPtr = dynamic_cast<Security*>(listSecurities[i]);
+                                        securityPtr->printName();
+                                        cout << " Malware: " << securityPtr->getMalware() << endl;
+                                    }
                                 break;
                                 
                                 case 4:
@@ -814,7 +995,6 @@ int main(){
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
-                            Game* gameSelect = new Game("", "", 0, listUsers, 0, "");
 
                             switch(methodChoice){ 
                                 case 1: 
@@ -852,9 +1032,7 @@ int main(){
                                             gamePtr->printName();
                                             cout << " Gender: " << gamePtr->getGender() << endl;
                                         }
-                                    } else {
-                                        cout << "Index out of range." << endl;
-                                    }
+                                    } 
                                 break;
 
                                 case 4:
@@ -875,7 +1053,7 @@ int main(){
                             cout << "Performing Browsers..." << endl;
                             cout << "[1] Delete Browsers Software" << endl;
                             cout << "[2] Add Browsers Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Clear history" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
@@ -889,6 +1067,19 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Browser* browserPtr;
+                                    int index;
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listBrowsers.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listBrowsers[i]->printName();
+                                    }
+
+                                    cout << "Select a Social Software: ";
+                                    cin >> index;
+                                    browserPtr = dynamic_cast<Browser*>(listBrowsers[index]);
+                                    browserPtr->clearHistory();
                                 break;
                                 
                                 case 4:
@@ -907,10 +1098,11 @@ int main(){
                             cout << "Performing Socials..." << endl;
                             cout << "[1] Delete Socials Software" << endl;
                             cout << "[2] Add Socials Software" << endl;
-                            cout << "[3] " << endl;
+                            cout << "[3] Add friends" << endl;
                             cout << "[4] Go back" << endl;
                             cout << "Choose an option (1-4): ";
                             cin >> methodChoice;
+                            stack<NodeUser*> listChildren;
 
                             switch(methodChoice){
                                 case 1:
@@ -922,6 +1114,39 @@ int main(){
                                 break;
 
                                 case 3:
+                                    Social* socialPtr;
+                                    int index;
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listSocials.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listSocials[i]->printName();
+                                    }
+
+                                    cout << "Select a Social Software: ";
+                                    cin >> index;
+                                    socialPtr = dynamic_cast<Social*>(listSocials[index]);
+                                    listChildren = socialPtr->getList();
+
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listUsers.getQtyUsers(); i++) {
+                                        if (listUsers.getUser(i)->age < 18) {
+                                            cout << "[" << i << "] ";
+                                            cout << listUsers.getUser(i)->user << "\n";
+                                        }
+                                    }
+
+                                    int friendIndex;
+                                    cout << "Select an index to add a friend: ";
+                                    cin >> friendIndex;
+                                    listChildren.push(listUsers.getUser(friendIndex));
+                                    
+                                    cout << "\n";
+                                    for (size_t i = 0; i < listSocials.size(); i++) {
+                                        cout << "[" << i << "] ";
+                                        listSocials[i]->printName();
+                                    }
+
                                 break;
                                 
                                 case 4:

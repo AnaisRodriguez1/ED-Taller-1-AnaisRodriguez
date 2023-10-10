@@ -18,6 +18,11 @@ class Social : public Software{
         virtual void printName() override {
             cout << name <<"\n";
         }
+
+        stack<NodeUser*> getList(){
+            return listFriends;
+        }
+
 };
 
 #endif

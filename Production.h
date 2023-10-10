@@ -17,5 +17,11 @@ class Production : public Software {
         virtual void printName() override {
             cout << name <<"\n";
         }
+        string getType(){
+            return type;
+        }
+        void setType(string _type){
+            type = _type;
+        }
 };
 #endif

@@ -18,5 +18,9 @@ class Browser : public Software {
         virtual void printName() override {
             cout << name <<"\n";
         }
+
+        void clearHistory(){
+            history.clear();
+        }
 };
 #endif
