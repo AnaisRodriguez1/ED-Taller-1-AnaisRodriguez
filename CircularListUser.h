@@ -42,6 +42,7 @@ class CircularListUser{
             NodeUser* current = head;
             if (head == NULL) {// Si la cabeza es null, la lista está vacía
                 cout << "The list is empty";
+                return nullptr;
             } else {
                 int currentIndex = 0;
                     do {
@@ -122,6 +123,5 @@ class CircularListUser{
             }
             return agreement;
         }
-
 };
 #endif

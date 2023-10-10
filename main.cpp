@@ -37,6 +37,7 @@ CircularListUser setListUsers (CircularListUser listUsers){
     listUsers.insert(u1);listUsers.insert(u2);listUsers.insert(u3);listUsers.insert(u4);listUsers.insert(u5);
     listUsers.insert(u6);listUsers.insert(u7);listUsers.insert(u8);listUsers.insert(u9);listUsers.insert(u10);
     listUsers.insert(u11);listUsers.insert(u12);listUsers.insert(u13);listUsers.insert(u14);listUsers.insert(u15);
+    return listUsers;
 }
 vector<Software*> setListGames (CircularListUser listUsers,vector<Software*> listGames){
     Game *game1 = new Game("The Legend of Zelda: Breath of the Wild","Nintendo",15,listUsers,58990,"Adventure");
@@ -66,6 +67,7 @@ vector<Software*> setListGames (CircularListUser listUsers,vector<Software*> lis
     listGames.push_back(game6);listGames.push_back(game7);listGames.push_back(game8);listGames.push_back(game9);listGames.push_back(game10);
     listGames.push_back(game11);listGames.push_back(game12);listGames.push_back(game13);listGames.push_back(game14);listGames.push_back(game15);
     listGames.push_back(game16);listGames.push_back(game17);listGames.push_back(game18);listGames.push_back(game19);listGames.push_back(game20);
+    return listGames;
 }
 vector<Software*> setListOfficeSuites (CircularListUser listUsers,vector<Software*> listOffices){
 
@@ -85,6 +87,7 @@ vector<Software*> setListOfficeSuites (CircularListUser listUsers,vector<Softwar
     OfficeSuite *fs5 = new OfficeSuite("Microsoft OneNote","Microsoft",13,listUsers,139990,matrix);
 
     listOffices.push_back(fs1);listOffices.push_back(fs2);listOffices.push_back(fs3);listOffices.push_back(fs4);listOffices.push_back(fs5);
+    return listOffices;
 }
 vector<Software*> setListProductions (CircularListUser listUsers,vector<Software*> listProductions){
     Production *p1 = new Production("Audacity","The Audacity Team",18,listUsers,0,"Audio");
@@ -92,6 +95,7 @@ vector<Software*> setListProductions (CircularListUser listUsers,vector<Software
     Production *p3 = new Production("OBS Studio","Lain Bailey",18,listUsers,0,"Streaming");
     Production *p4 = new Production("Adobe Photoshop","Adobe Inc",18,listUsers,163200,"Image");
     listProductions.push_back(p1);listProductions.push_back(p2);listProductions.push_back(p3);listProductions.push_back(p4);
+    return listProductions;
 }
 vector<Software*> setListBrowsers (CircularListUser listUsers,vector<Software*> listBrowsers){
     vector<string> history1 = {"https://www.op.gg/summoners/kr/hide%20on%20bush", //1
@@ -118,6 +122,7 @@ vector<Software*> setListBrowsers (CircularListUser listUsers,vector<Software*> 
                             "https://www.artstation.com/artwork/6bNqdO"};//10
     Browser *b2 = new Browser("Microsoft Edge","Microsoft Corporation",13,listUsers,0,history2);
     listBrowsers.push_back(b1);listBrowsers.push_back(b2);
+    return listBrowsers;
 }
 vector<Software*> setListSecurities (CircularListUser listUsers,vector<Software*> listSecurities){
     Security *s1 = new Security("Malwarebytes Anti-Ransomware","Malwarebytes Corporation",18,listUsers,7000,"Ransomware");
@@ -128,6 +133,7 @@ vector<Software*> setListSecurities (CircularListUser listUsers,vector<Software*
     Security *s6 = new Security("Kaspersky Total Security","Kaspersky Lab",18,listUsers,29610,"Trojans");
 
     listSecurities.push_back(s1);listSecurities.push_back(s2);listSecurities.push_back(s3);listSecurities.push_back(s4);listSecurities.push_back(s5);listSecurities.push_back(s6);
+    return listSecurities;
 }
 vector<Software*> setListSocials(CircularListUser listUsers,vector<Software*> listSocials){   
     //lista para amigos mayores a 18 años
@@ -139,8 +145,32 @@ vector<Software*> setListSocials(CircularListUser listUsers,vector<Software*> li
     stack<NodeUser*> listFriends;
     listFriends.push(listUsers.getUser(1));listFriends.push(listUsers.getUser(2));
     Social *soc2 = new Social("WhatsApp","Facebook Inc",16,listUsers,0,listFriends);
+    return listSocials;
 }
 
+vector<Software*> setListGamesToAdd(CircularListUser listUsers,vector<Software*> listGamesToAdd){
+    Game *game = new Game("Assassin's Creed Valhalla","Ubisoft",18,listUsers,4999,"Action-Adventure");
+    listGamesToAdd.push_back(game);
+    game = new Game("The Elder Scrolls V: Skyrim","Bethesda",17,listUsers,3999,"Action-RPG");
+    listGamesToAdd.push_back(game);
+    game = new Game("Call of Duty: Warzone","Activision",18,listUsers,0,"Battle Royale");
+    listGamesToAdd.push_back(game);
+    game = new Game("Among Us","InnerSloth",10,listUsers,499,"Social Deduction");
+    listGamesToAdd.push_back(game);
+    game = new Game("Genshin Impact","miHoYo",12,listUsers,0,"Action-RPG");
+    listGamesToAdd.push_back(game);
+    game = new Game("Terraria","Re-Logic",10,listUsers,1499,"Sandbox");
+    listGamesToAdd.push_back(game);
+    game = new Game("Overwatch","Blizzard Entertainment",13,listUsers,1999,"First-Person Shooter");
+    listGamesToAdd.push_back(game);
+    game = new Game("Animal Crossing: New Horizons","Nintendo",3,listUsers,5999,"Life Simulation");
+    listGamesToAdd.push_back(game);
+    game = new Game("Hades","Supergiant Games",12,listUsers,1999,"Roguelike");
+    listGamesToAdd.push_back(game);
+    game = new Game("Celeste","Maddy Makes Games",10,listUsers,999,"Platformer");
+    listGamesToAdd.push_back(game);
+    return listGamesToAdd;
+}
 
 vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listUsers){
     cout<<"\n";
@@ -174,7 +204,18 @@ vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listU
     else{
     }
     return list;
-    
+}
+vector<Software*> addSoftware (vector<Software*> list,vector<Software*> listToAdd,CircularListUser listUsers){
+    cout<<"\n";
+    for(int i=0 ; i<listToAdd.size() ; i++){
+        cout << "["<<i<<"] ";
+        listToAdd[i]->printName();    
+    }
+    cout << "Escoge el indice del software que quieres añadir";
+    int indexChoice;
+    cin >> indexChoice;
+    list.push_back(listToAdd[indexChoice]);
+    return list;
 }
 
 int main(){
@@ -192,6 +233,9 @@ int main(){
 
     //POBLAR SOFTWARE DE JUEGOS*************   
     listGames = setListGames(listUsers,listGames);
+    
+    //vector<Software*> listGamesToAdd;
+    //listGamesToAdd = setListGamesToAdd(listUsers,listGamesToAdd);
 
     //POBLAR SOFTWARE DE OFIMATICA*************
     listOffices = setListOfficeSuites(listUsers,listOffices);
@@ -262,10 +306,11 @@ int main(){
                 cout << "[6] Log Out" << endl;
                 cout << "Choose an option (1-6): ";
                 cin >> loginChoice;
-
+                
                 switch (loginChoice) {
                     case 1:
                         while(!back){
+                            
                             cout << "\nPerforming Games...\n" << endl;
                             cout << "[1] Delete game" << endl;
                             cout << "[2] Add game" << endl;
@@ -276,12 +321,12 @@ int main(){
 
                             switch(methodChoice){ 
                                 case 1: 
-                                listGames = deleteSoftware (listGames,listUsers);
-                                back = false;
-
+                                    listGames = deleteSoftware (listGames,listUsers);
+                                    back = false;
                                 break;
 
                                 case 2:
+                                //listGames = addSoftware(listGames,listGamesToAdd,listUsers);
                                 break; 
 
                                 case 3:
