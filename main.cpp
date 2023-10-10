@@ -227,7 +227,7 @@ vector<Software*> deleteSoftware (vector<Software*> list, CircularListUser listU
 
         if(agreement==true){
             list.erase(list.begin() + index);
-            cout<<"\nThese are the games within the software:";
+            cout<<"\nThese are the games within the software:\n";
             for(size_t i=0;i<list.size();i++){
                 cout << "["<<i<<"] ";
                 list[i]->printName();
@@ -481,8 +481,9 @@ int main(){
                                     listProductions = deleteSoftware(listProductions,listUsers);
                                 break;   
                                 case 2:
-                                break;
                                     listProductions = addSoftware (listProductions,listProductionsToAdd,listUsers);
+                                break;
+                                    
                                 case 3:
                                 break;
                                 
@@ -543,8 +544,8 @@ int main(){
                                 case 1:
                                     listSocials = deleteSoftware(listSocials,listUsers);
                                 break;
-                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
                                 case 2:
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
                                 break;
 
                                 case 3:
@@ -602,11 +603,9 @@ int main(){
                                 case 1: 
                                     listGames = deleteSoftware (listGames,listUsers);
                                 break;
-
                                 case 2:
                                     listGames = addSoftware(listGames,listGamesToAdd,listUsers);
                                 break; 
-
                                 case 3:                                    
                                     cout << "\n";
                                     for (size_t i = 0; i < listGames.size(); i++) {
@@ -667,8 +666,9 @@ int main(){
                                 listProductions = deleteSoftware(listProductions,listUsers);
                             break;   
                             case 2:
-                            break;
                                 listProductions = addSoftware (listProductions,listProductionsToAdd,listUsers);
+                            break;
+                                
                             case 3:
                             break;
                             
@@ -729,8 +729,9 @@ int main(){
                                 case 1:
                                     listSocials = deleteSoftware(listSocials,listUsers);
                                 break;
-                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
+                                    
                                 case 2:
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
                                 break;
 
                                 case 3:
@@ -761,8 +762,9 @@ int main(){
                                 case 1:
                                     listSecurities = deleteSoftware(listSecurities,listUsers);
                                 break;
-                                    listSecurities = addSoftware(listSecurities,listSecuritiesToAdd,listUsers);
+                                    
                                 case 2:
+                                    listSecurities = addSoftware(listSecurities,listSecuritiesToAdd,listUsers);
                                 break;
 
                                 case 3:
@@ -914,8 +916,9 @@ int main(){
                                 case 1:
                                     listSocials = deleteSoftware(listSocials,listUsers);
                                 break;
-                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
+                                    
                                 case 2:
+                                    listSocials = addSoftware(listSocials,listSocialsToAdd,listUsers);
                                 break;
 
                                 case 3:
